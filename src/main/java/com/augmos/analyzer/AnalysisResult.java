@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 public abstract class AnalysisResult {
-
+    
     private final boolean parsed;
     private final boolean valid;
     private final boolean correct;
