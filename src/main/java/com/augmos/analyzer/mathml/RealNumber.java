@@ -1,52 +1,83 @@
 package com.augmos.analyzer.mathml;
 
 public class RealNumber {
+
+    /**
+     * A universal representation of written numbers as a real number
+     * A real number can be represented as a/b, where a and b are integers
+     *
+     * realNumberNotation shows how the number was/has to be written in text (integer, float or fraction)
+     */
+
     private final int dividend;
     private final int divisor;
     private final RealNumberNotation realNumberNotation;
 
-    public RealNumber(int dividend, int divisor, RealNumberNotation realNumberNotation){
-        this.dividend = dividend;
-        this.divisor = divisor;
+    /**
+     * A default constructor that automatically reduces the parameters for the numbers to be minimal
+     *
+     * @param dividend
+     * @param divisor
+     * @param realNumberNotation
+     */
+    public RealNumber(
+            final int dividend,
+            final int divisor,
+            final RealNumberNotation realNumberNotation
+    ){
+        final int gcd = gcd(dividend, divisor);
+        this.dividend = dividend / gcd;
+        this.divisor = divisor / gcd;
         this.realNumberNotation = realNumberNotation;
     }
 
-    public RealNumber add(RealNumber arg){
-        int kgv = this.divisor * arg.divisor / gcd(this.divisor, arg.divisor);
-        int div1 = this.dividend * (kgv / this.divisor);
-        int div2 = arg.dividend * (kgv / arg.divisor);
-        int newDiv = div1 + div2;
-        // Get smallest basis
-        newDiv = newDiv / gcd(newDiv, kgv);
-        int newBasis = kgv / gcd(newDiv, kgv);
+    public RealNumber add(final RealNumber arg){
+        if (RealNumberNotation.UNCERTAIN.equals(arg.realNumberNotation))
+            return UncertainNumber.get();
 
-        return setNewNotation(newDiv, newBasis);
+        final int scm = scm(this.divisor, arg.divisor);
+        int newDiv = this.dividend * (scm / this.divisor) + arg.dividend * (scm / arg.divisor);
+        return create(newDiv, scm);
     }
 
     public RealNumber sub(RealNumber arg){
-        //dividend negiert
-        return this.add(new RealNumber(-arg.dividend, arg.divisor, arg.realNumberNotation));
+        if (RealNumberNotation.UNCERTAIN.equals(arg.realNumberNotation))
+            return UncertainNumber.get();
 
-    }
-
-    public RealNumber div(RealNumber arg) {
-        //argumente umgedreht
-        return this.mul(new RealNumber(arg.divisor, arg.dividend, arg.realNumberNotation));
+        final int scm = scm(this.divisor, arg.divisor);
+        int newDiv = this.dividend * (scm / this.divisor) - arg.dividend * (scm / arg.divisor);
+        return create(newDiv, scm);
     }
 
     public RealNumber mul(RealNumber arg) {
-        return setNewNotation(this.dividend * arg.dividend, this.divisor * arg.divisor);
+        if (RealNumberNotation.UNCERTAIN.equals(arg.realNumberNotation))
+            return UncertainNumber.get();
+
+        return create(this.dividend * arg.dividend, this.divisor * arg.divisor);
     }
 
-    public int compareTo(RealNumber arg) {
-        double curr = this.dividend / this.divisor;
-        double argD = arg.dividend / arg.divisor;
-        if (curr == argD) {
+    public RealNumber div(RealNumber arg) {
+        if (RealNumberNotation.UNCERTAIN.equals(arg.realNumberNotation))
+            return UncertainNumber.get();
+
+        return create(this.dividend * arg.divisor, this.divisor * arg.dividend);
+    }
+
+    /**
+     * Compares two numbers. Always assumes that the numbers are in their reduced form
+     * @param arg
+     * @return -1 if this is lesser than arg, 0 if this=arg, 1 if this is greater than arg
+     */
+    public int compareTo(final RealNumber arg) {
+        final int a = this.dividend * arg.divisor;
+        final int b = arg.dividend * this.divisor;
+
+        if (a == b)
             return 0;
-        } else if (curr < argD) {
+        if (a < b)
             return -1;
-        }
-        return 1;
+        else
+            return 1;
     }
     @Override
     public boolean equals(Object obj) {
@@ -80,7 +111,21 @@ public class RealNumber {
         return a;
     }
 
-    static private RealNumber setNewNotation(int div, int base) {
+    static private int scm(
+            final int a,
+            final int b
+    ) {
+        return (a * b) / gcd(a,b);
+    }
+
+    /**
+     * A private constructor that automatically sets notation types
+     *
+     * @param div
+     * @param base
+     * @return
+     */
+    static private RealNumber create(int div, int base) {
         //Check if Integer and return
         if (div % base == 0) {
             return new RealNumber(div / base, 1, RealNumberNotation.INTEGER);
@@ -96,6 +141,7 @@ public class RealNumber {
     enum RealNumberNotation{
         INTEGER,
         FLOAT,
-        FRACTION
+        FRACTION,
+        UNCERTAIN
     }
 }

@@ -1,8 +1,6 @@
 package com.augmos.analyzer.mathml;
 
-import com.augmos.analyzer.Expression;
-
-public class MathMLFailedExpression extends Expression {
+public class MathMLFailedExpression extends MathMLExpression {
     private final int ErrorLocation;
     private final int ErrorLength;
     private final String ErrorContent;
@@ -13,5 +11,12 @@ public class MathMLFailedExpression extends Expression {
         this.ErrorLength = ErrorLength;
         this.ErrorMsg = ErrorMsg;
         this.ErrorContent = ErrorContent;
+    }
+
+    //TODO identifier method, getters
+
+    @Override
+    Object evaluate() {
+        return null;
     }
 }
