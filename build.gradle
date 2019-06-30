@@ -1,1 +1,23 @@
-apply plugin 'java'
+apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+    google()
+}
+
+dependencies {
+    compile(
+            //logging
+            'org.slf4j:slf4j-api:1.7.26',
+            'ch.qos.logback:logback-core:1.2.3',
+            'ch.qos.logback:logback-classic:1.2.3',
+
+            //data logistics
+            'com.fasterxml.jackson.core:jackson-core:2.9.9',
+            'com.fasterxml.jackson.core:jackson-databind:2.9.9',
+
+            //rendering
+            'org.freemarker:freemarker:2.3.20'
+    )
+}
