@@ -1,0 +1,24 @@
+{
+  "id": "1",
+  "name": "Linear Equation",
+  "description": "An equation with one unknown variable",
+  "text": "Determine the value of ${VAR}",
+  "mathml": "${FAC}${VAR}<mo>+</mo>${NUM1}<mo>=</mo>${NUM2}",
+  "solution": [
+    "${FAC}${VAR}<mo>=</mo>${NUM2}<mo>-</mo>${NUM1}",
+    "${FAC}${VAR}<mo>=</mo>${NUM3}",
+    "${VAR}<mo>=</mo>${NUM3}<mo>/</mo>${FAC}",
+    "${VAR}<mo>=</mo>${ANS}"
+  ],
+  "answers": {
+    "${VAR}": "${ANS}"
+  },
+  "params": [
+    "FAC",
+    "VAR",
+    "NUM1",
+    "NUM2",
+    "NUM3",
+    "ANS"
+  ]
+}
