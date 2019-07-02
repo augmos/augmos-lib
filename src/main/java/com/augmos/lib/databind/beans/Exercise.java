@@ -16,14 +16,14 @@ public class Exercise {
     // instance fields
     private final long id;
     private final String name;
-    private final Template template;
+    private final long template;
     private final Map<String, String> params;
 
     @JsonCreator
     public Exercise(
             @JsonProperty(ID_KEY) final long id,
             @JsonProperty(NAME_KEY) final String name,
-            @JsonProperty(TEMPLATE_KEY) final Template template,
+            @JsonProperty(TEMPLATE_KEY) final long template,
             @JsonProperty(PARAMS_KEY) final Map<String, String> params
     ) {
         this.id = id;
@@ -43,7 +43,7 @@ public class Exercise {
     }
 
     @JsonProperty(TEMPLATE_KEY)
-    public Template getTemplate() {
+    public long getTemplate() {
         return template;
     }
 

@@ -26,7 +26,7 @@ public final class RenderedExercise extends Exercise {
     public RenderedExercise(
             @JsonProperty(ID_KEY) final long id,
             @JsonProperty(NAME_KEY) final String name,
-            @JsonProperty(TEMPLATE_KEY) final Template template,
+            @JsonProperty(TEMPLATE_KEY) final long template,
             @JsonProperty(PARAMS_KEY) final Map<String, String> params,
             @JsonProperty(RENDERED_TEXT_KEY) final String renderedText,
             @JsonProperty(RENDERED_MATHML_KEY) final String renderedMathml,

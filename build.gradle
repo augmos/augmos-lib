@@ -16,6 +16,7 @@ dependencies {
             //data logistics
             'com.fasterxml.jackson.core:jackson-core:2.9.9',
             'com.fasterxml.jackson.core:jackson-databind:2.9.9',
+            'com.google.firebase:firebase-admin:6.8.1',
 
             //rendering
             'org.freemarker:freemarker:2.3.20'

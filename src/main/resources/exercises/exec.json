@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "name": "test",
+  "template": 1,
+  "params": {
+    "FAC": "<mn>2</mn>",
+    "VAR":  "<mi>x</mi>",
+    "NUM1": "<mn>3</mn>",
+    "NUM2": "<mn>5</mn>",
+    "NUM3": "<mn>2</mn>",
+    "ANS": "<mn>1</mn>"
+  }
+}
